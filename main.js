@@ -17,6 +17,7 @@ const DomHandler = (() => {
   const passwordLength = () => {
     return parseInt(passwordLengthDom.value);
   };
+
   let isMouseDown = false;
   passwordLengthDom.addEventListener("mousedown", function () {
     isMouseDown = true;
@@ -29,7 +30,7 @@ const DomHandler = (() => {
   passwordLengthDom.addEventListener("mousemove", function () {
     if (isMouseDown === true) {
       const passwordLengthText = document.querySelector(".preferred-password-length");
-      passwordLengthText.textContent = passwordLengthDom.value;
+      passwordLengthText.textContent = passwordLength();
     }
   });
 
