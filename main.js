@@ -69,8 +69,24 @@ const Main = (() => {
   const numbers = "0123456789";
   const symbols = "!@#$%^&*()-_=+";
 
+  const atLeastOneOptionIsEnabled = () => {
+    if (
+      DomHandler.isLowerCaseIncluded() === true ||
+      DomHandler.isUpperCaseIncluded() === true ||
+      DomHandler.isNumberIncluded() === true ||
+      DomHandler.isSymbolIncluded() === true
+    ) {
+      return true;
+    } else {
+      alert("At least one option should be selected!");
+      return false
+    }
+  };
+
   const generateBtn = document.querySelector("#generatePassword");
   generateBtn.addEventListener("click", function () {
-    console.log("Hello");
+    if (atLeastOneOptionIsEnabled()) {
+      console.log("Goods");
+    }
   });
 })();
