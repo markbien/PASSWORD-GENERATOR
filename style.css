@@ -114,3 +114,7 @@ input[type="checkbox"] {
   width: 25px;
   cursor: pointer;
 }
+
+input[type="range"] {
+  cursor: pointer;
+}
