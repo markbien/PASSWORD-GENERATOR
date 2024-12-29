@@ -83,10 +83,43 @@ const Main = (() => {
     }
   };
 
+  const containsAtLeastOneCharInSet = (chars, password) => {
+    for (let i = 0; i < password.length; i++) {
+      const char_array = chars.split("");
+      const result = char_array.findIndex(char => {
+        return char === password[i];
+      });
+
+      if (result != -1) return true;
+    }
+    return false;
+  }
+
+  // const passwordContainsAtLeastOneCharFromSelectedOptions = (allowedChars, password) => {
+  //   for (let i = 0; i < allowedChars.length; i++) {
+      
+  //   }
+  // }
+
   const generateBtn = document.querySelector("#generatePassword");
   generateBtn.addEventListener("click", function () {
     if (atLeastOneOptionIsEnabled()) {
-      console.log("Goods");
+      let allowedChars = "";
+
+      allowedChars += DomHandler.isLowerCaseIncluded() ? lowercase : "";
+      allowedChars += DomHandler.isUpperCaseIncluded() ? uppercase : "";
+      allowedChars += DomHandler.isNumberIncluded() ? numbers : "";
+      allowedChars += DomHandler.isSymbolIncluded() ? symbols : "";
+
+      let newPassword = "";
+
+      while (true) {
+        const tempPassword = PasswordGenerator.generatePassword(allowedChars);
+        // if ()
+      }
+
+      // const passwordTextBox = document.querySelector('#password');
+      // passwordTextBox.value = PasswordGenerator.generatePassword(allowedChars);
     }
   });
 })();
