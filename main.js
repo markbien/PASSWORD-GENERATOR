@@ -13,10 +13,25 @@ const PasswordGenerator = (() => {
 })();
 
 const DomHandler = (() => {
+  const passwordLengthDom = document.querySelector("#password-length");
   const passwordLength = () => {
-    const passwordLengthDom = document.querySelector("#password-length");
     return parseInt(passwordLengthDom.value);
   };
+  let isMouseDown = false;
+  passwordLengthDom.addEventListener("mousedown", function () {
+    isMouseDown = true;
+  });
+
+  passwordLengthDom.addEventListener("mouseup", function () {
+    isMouseDown = false;
+  });
+
+  passwordLengthDom.addEventListener("mousemove", function () {
+    if (isMouseDown === true) {
+      const passwordLengthText = document.querySelector(".preferred-password-length");
+      passwordLengthText.textContent = passwordLengthDom.value;
+    }
+  });
 
   const isLowerCaseIncluded = () => {
     const lowercaseDom = document.querySelector("#lowercase");
@@ -31,12 +46,12 @@ const DomHandler = (() => {
   const isNumberIncluded = () => {
     const numberDom = document.querySelector("#numbers");
     return numberDom.checked;
-  }
+  };
 
   const isSymbolIncluded = () => {
     const symbolDom = document.querySelector("#symbols");
     return symbolDom.checked;
-  }
+  };
 
   return {
     passwordLength,
@@ -53,8 +68,8 @@ const Main = (() => {
   const numbers = "0123456789";
   const symbols = "!@#$%^&*()-_=+";
 
-  const generateBtn = document.querySelector('#generatePassword');
-  generateBtn.addEventListener('click', function(){
+  const generateBtn = document.querySelector("#generatePassword");
+  generateBtn.addEventListener("click", function () {
     console.log("Hello");
   });
 })();
