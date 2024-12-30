@@ -56,6 +56,20 @@ const DomHandler = (() => {
     return symbolDom.checked;
   };
 
+  const copyIcon = document.querySelector('.copy');
+  copyIcon.addEventListener('click', function(){
+    const passwordTextBox = document.querySelector('#password');
+    if (passwordTextBox.value === "") {
+      alert("Please generate a password first.");
+      return;
+    }
+
+    passwordTextBox.select();
+    navigator.clipboard.writeText(passwordTextBox.value).then(function(){
+      alert("Successfully copied the password to clipboard.");
+    });
+  });
+
   return {
     passwordLength,
     isLowerCaseIncluded,
