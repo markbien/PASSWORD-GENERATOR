@@ -29,7 +29,9 @@ const DomHandler = (() => {
 
   passwordLengthDom.addEventListener("mousemove", function () {
     if (isMouseDown === true) {
-      const passwordLengthText = document.querySelector(".preferred-password-length");
+      const passwordLengthText = document.querySelector(
+        ".preferred-password-length"
+      );
       passwordLengthText.textContent = passwordLength();
     }
   });
@@ -79,47 +81,72 @@ const Main = (() => {
       return true;
     } else {
       alert("At least one option should be selected!");
-      return false
+      return false;
     }
   };
 
   const containsAtLeastOneCharInSet = (chars, password) => {
     for (let i = 0; i < password.length; i++) {
       const char_array = chars.split("");
-      const result = char_array.findIndex(char => {
+      const result = char_array.findIndex((char) => {
         return char === password[i];
       });
 
       if (result != -1) return true;
     }
     return false;
-  }
-
-  // const passwordContainsAtLeastOneCharFromSelectedOptions = (allowedChars, password) => {
-  //   for (let i = 0; i < allowedChars.length; i++) {
-      
-  //   }
-  // }
+  };
 
   const generateBtn = document.querySelector("#generatePassword");
   generateBtn.addEventListener("click", function () {
     if (atLeastOneOptionIsEnabled()) {
       let allowedChars = "";
+      let selectedCharsArr = [];
 
-      allowedChars += DomHandler.isLowerCaseIncluded() ? lowercase : "";
-      allowedChars += DomHandler.isUpperCaseIncluded() ? uppercase : "";
-      allowedChars += DomHandler.isNumberIncluded() ? numbers : "";
-      allowedChars += DomHandler.isSymbolIncluded() ? symbols : "";
-
-      let newPassword = "";
-
-      while (true) {
-        const tempPassword = PasswordGenerator.generatePassword(allowedChars);
-        // if ()
+      if (DomHandler.isLowerCaseIncluded()) {
+        allowedChars += lowercase;
+        selectedCharsArr.push(lowercase);
       }
 
-      // const passwordTextBox = document.querySelector('#password');
-      // passwordTextBox.value = PasswordGenerator.generatePassword(allowedChars);
+      if (DomHandler.isUpperCaseIncluded()) {
+        allowedChars += uppercase;
+        selectedCharsArr.push(uppercase);
+      }
+
+      if (DomHandler.isNumberIncluded()) {
+        allowedChars += numbers;
+        selectedCharsArr.push(numbers);
+      }
+
+      if (DomHandler.isSymbolIncluded()) {
+        allowedChars += symbols;
+        selectedCharsArr.push(symbols);
+      }
+
+      let acceptPassword = true;
+
+      while (true) {
+        const newPassword = PasswordGenerator.generatePassword(allowedChars);
+        
+        for (let i = 0; i < selectedCharsArr.length; i++) {
+          console.log(selectedCharsArr[i]);
+          console.log(newPassword);
+          if (!containsAtLeastOneCharInSet(selectedCharsArr[i], newPassword)) {
+            acceptPassword = false;
+            break;
+          }
+        }
+
+        if (acceptPassword === true) {
+          const passwordTextBox = document.querySelector('#password');
+          passwordTextBox.value = newPassword;
+          break;
+        }
+        else {
+          acceptPassword = true;
+          continue;
+        }
+      }
     }
   });
 })();
