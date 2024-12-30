@@ -2,7 +2,7 @@ const PasswordGenerator = (() => {
   function generatePassword(allowedChars) {
     let newPassword = "";
 
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < DomHandler.passwordLength(); i++) {
       const randomIndex = Math.floor(Math.random() * allowedChars.length);
       newPassword += allowedChars[randomIndex];
     }
